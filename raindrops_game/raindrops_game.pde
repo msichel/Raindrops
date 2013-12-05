@@ -1,4 +1,5 @@
-raindrop[] rain = new raindrop[500];
+//raindrop[] rain = new raindrop[500];
+ArrayList<raindrop> rain = new ArrayList<raindrop>();
 int score = 0;
 catcher player;
 void setup()
@@ -6,22 +7,21 @@ void setup()
   size(500,500);
   noStroke();
   noCursor();
-  for(int i = 0;i<rain.length;i++)
-  {
-    rain[i] = new raindrop(random(width-10)+5,random(-2*height,-5));
-  }
-  player = new catcher(new PVector(mouseX,height-100));
+  player = new catcher(new PVector(mouseX,mouseY));
 }
 void draw()
 {
-  background(0);
+//  background(0);
+  fill(0,90);
+  rect(0,0,width,height);
   fill(255,255,127.5);
   text(score,10,20);
-  for(int i = 0;i<rain.length;i++)
+  for(int i = rain.size()-1;i>=0;i--)
   {
-    rain[i].move();
-    rain[i].display();
-    if(rain[i].checkCatcher(player))
+    raindrop r = rain.get(i);
+    r.move();
+    r.display();
+    if(r.checkCatcher(player))
     {
       score++;
     }

@@ -22,7 +22,7 @@ class raindrop
   }
   void display()
   {
-    fill(200,255,255);
+    fill(10,10,255);
     ellipse(pos.x,pos.y,d,d);
   }
   void reset()
