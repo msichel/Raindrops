@@ -35,7 +35,6 @@ class raindrop
     boolean t = false;
     if (dist(pos.x,pos.y,c.pos.x,c.pos.y)<=(d+c.d)/2)
     {
-      reset();
       t = true;
     }
     return t;

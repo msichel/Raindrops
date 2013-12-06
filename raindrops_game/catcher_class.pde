@@ -12,6 +12,14 @@ class catcher
   {
     PVector m = new PVector(mouseX-pos.x,mouseY-pos.y);
     m.mult(0.001);
+    if(pos.x<=d/2||pos.x>=width-d/2)
+    {
+      vel.x*=-.5;
+    }
+    if(pos.y<=d/2||pos.y>=width-d/2)
+    {
+      vel.y*=-.5;
+    }
     vel.add(m);
     pos.add(vel);
 //    pos.x = mouseX;
