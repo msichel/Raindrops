@@ -85,6 +85,7 @@ void startgame()
   p = true;
   textAlign(CORNER);
   t=new Timer(2500);
+  score = 0;
 }
 void lose()
 {
@@ -94,10 +95,10 @@ void lose()
   textSize(50);
   textAlign(CENTER);
   rain.clear();
-  score = 0;
 }
 void mousePressed()
 {
+  //checks if the button is pressed
   if(!p&&dist(mouseX,mouseY,width/2,height/2)<=25)
   {
     startgame();
