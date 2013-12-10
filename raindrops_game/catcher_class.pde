@@ -26,6 +26,11 @@ class catcher
   }
   void display()
   {
+    pushStyle();
+    strokeWeight(2);
+    stroke(0,255,0);
+    line(pos.x,pos.y,mouseX,mouseY);
+    popStyle();
     fill(255,127.5,0);
     ellipse(pos.x,pos.y,d,d);
   }
