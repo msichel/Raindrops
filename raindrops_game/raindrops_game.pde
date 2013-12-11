@@ -4,6 +4,7 @@ int score = 0;
 catcher player;
 boolean p = false;
 int losenum = 10;
+boolean fplay = true;
 Timer t;
 void setup()
 {
@@ -66,7 +67,7 @@ void draw()
     ellipse(width/2,height/2,50,50);
     fill(255);
     //checks if score = 0
-    if(score == 0)
+    if(fplay)
     {
       text("Rain",width/2,height/2-100);
     }
@@ -86,6 +87,7 @@ void startgame()
   textAlign(CORNER);
   t=new Timer(2500);
   score = 0;
+  fplay = false;
 }
 void lose()
 {
