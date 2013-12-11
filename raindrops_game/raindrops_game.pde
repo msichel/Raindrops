@@ -8,7 +8,7 @@ boolean fplay = true;
 Timer t;
 void setup()
 {
-  size(500,500);
+  size(500, 500);
   background(0);
   noStroke();
   textSize(50);
@@ -16,65 +16,83 @@ void setup()
 }
 void draw()
 {
-  //checks if a ctacher exists
-  if (p)
+  if (focused)
   {
-    //background
-    fill(0,90);
-    rect(0,0,width,height);
-    //score
-    fill(255,255,127.5);
-    textSize(10);
-    text("Score: "+score,10,20);
-    //raindrop bar
-    fill(10,10,255);
-    rect(width-61,9,52,12);
-    fill(255,0,0);
-    rect(width-60,10,5*rain.size(),10);
-    //update raindrops
-    for(int i = rain.size()-1;i>=0;i--)
+    //checks if a ctacher exists
+    if (p)
     {
-      //gets raindrop
-      raindrop r = rain.get(i);
-      //move and show
-      r.move();
-      r.display();
-      //check collision
-      if(r.checkCatcher(player))
+      //background
+      fill(0, 90);
+      rect(0, 0, width, height);
+      //score
+      fill(255, 0, 0);
+      rect(0, height-20, 20, 20);
+      //checks if mouse is over "Quit" button
+      if (mouseX<=20 && mouseY>=height-20)
       {
-        score++;
-        rain.remove(i);
+        cursor();
+      }
+      else
+      {
+        noCursor();
+      }
+      fill(255, 255, 127.5);
+      textSize(10);
+      text("Score: "+score, 10, 20);
+      //raindrop bar
+      fill(10, 10, 255);
+      rect(width-61, 9, 52, 12);
+      fill(255, 0, 0);
+      rect(width-60, 10, 5*rain.size(), 10);
+      //update raindrops
+      for (int i = rain.size()-1;i>=0;i--)
+      {
+        //gets raindrop
+        raindrop r = rain.get(i);
+        //move and show
+        r.move();
+        r.display();
+        //check collision
+        if (r.checkCatcher(player))
+        {
+          score++;
+          rain.remove(i);
+        }
+      }
+      //move and show player
+      player.move();
+      player.display();
+      //spaen new raindrop
+      if (t.checktime())
+      {
+        rain.add(new raindrop(random(5, width-5), -5));
+      }
+      //check if we lost
+      if (rain.size()>=losenum)
+      {
+        lose();
       }
     }
-    //move and show player
-    player.move();
-    player.display();
-    //spaen new raindrop
-    if(t.checktime())
-    {
-      rain.add(new raindrop(random(5,width-5),-5));
-    }
-    //check if we lost
-    if(rain.size()>=losenum)
-    {
-      lose();
-    }
-  }
-  //title screen
-  else
-  {
-    fill(0,255,0);
-    ellipse(width/2,height/2,50,50);
-    fill(255);
-    //checks if score = 0
-    if(fplay)
-    {
-      text("Rain",width/2,height/2-100);
-    }
+    //title screen
     else
     {
-      text("Score: "+score,width/2,height/2-100);
+      fill(0, 255, 0);
+      ellipse(width/2, height/2, 50, 50);
+      fill(255);
+      //checks if score = 0
+      if (fplay)
+      {
+        text("Rain", width/2, height/2-100);
+      }
+      else
+      {
+        text("Score: "+score, width/2, height/2-100);
+      }
     }
+  }
+  else
+  {
+    cursor();
   }
 }
 void startgame()
@@ -82,7 +100,7 @@ void startgame()
   //reset
   noCursor();
   background(0);
-  player = new catcher(new PVector(mouseX,mouseY));
+  player = new catcher(new PVector(mouseX, mouseY));
   p = true;
   textAlign(CORNER);
   t=new Timer(2500);
@@ -101,8 +119,14 @@ void lose()
 void mousePressed()
 {
   //checks if the button is pressed
-  if(!p&&dist(mouseX,mouseY,width/2,height/2)<=25)
+  if (!p&&dist(mouseX, mouseY, width/2, height/2)<=25)
   {
     startgame();
   }
+  //checks if "Quit" is pressed
+  else if (p && mouseX<=20 && mouseY>=height-20)
+  {
+    lose();
+  }
 }
+
